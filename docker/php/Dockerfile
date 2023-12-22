@@ -36,4 +36,11 @@ RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local
     && composer --version \
     #&& composer global require hirak/prestissimo
 
-#WORKDIR /var/www/rest-app
+WORKDIR /var/www/html
+
+COPY rest-app/. .
+
+# create production ready image
+ENV COMPOSER_ALLOW_SUPERUSER=1
+
+RUN composer install --no-dev --no-interaction --optimize-autoloader

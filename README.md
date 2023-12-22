@@ -22,6 +22,7 @@ The frontend is calling one endpoint for geocoding in the REST API backend. From
     ```
 2. create`rest-app/.env.local` file with `GOOGLE_API_KEY=[registered-google-api-key]`
 3. run docker containers `docker-compose up -d`
+4. get inside the php container `docker-compose exec php bash` and run `composer install --no-dev --no-interaction --optimize-autoloader`
 
 ## Notes
 1. you can access the frontend SPA on http://localhost/

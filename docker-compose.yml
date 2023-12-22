@@ -26,7 +26,8 @@ services:
         args:
             TIMEZONE: ${TIMEZONE}
     volumes:
-        - ./rest-app/:/var/www/rest-app/
+        - ./rest-app/:/var/www/html/
+        - /var/www/html/vendorv
     stdin_open: true
     tty: true
     networks:
@@ -37,7 +38,8 @@ services:
         context: .
         dockerfile: docker/nginx/Dockerfile
     volumes:
-        - ./rest-app/:/var/www/rest-app/
+        - ./rest-app/:/var/www/html/
+        - /var/www/html/vendor
     ports:
         - 82:80
     networks:
