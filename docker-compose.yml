@@ -1,0 +1,44 @@
+version: "3"
+
+networks:
+  backend:
+
+services:
+  node:
+    build:
+      context: .
+      dockerfile: docker/node/Dockerfile
+    volumes:
+      - ./spa-app/:/var/www/spa-app/
+      - /var/www/spa-app/node_modules
+    stdin_open: true
+    tty: true
+    environment:
+      - CHOKIDAR_USEPOLLING=true
+    ports:
+      - 80:8080
+    networks:
+      - backend
+  php:
+    build:
+        context: .
+        dockerfile: docker/php/Dockerfile
+        args:
+            TIMEZONE: ${TIMEZONE}
+    volumes:
+        - ./rest-app/:/var/www/rest-app/
+    stdin_open: true
+    tty: true
+    networks:
+        - backend
+        
+  nginx:
+    build:
+        context: .
+        dockerfile: docker/nginx/Dockerfile
+    volumes:
+        - ./rest-app/:/var/www/rest-app/
+    ports:
+        - 82:80
+    networks:
+        - backend
